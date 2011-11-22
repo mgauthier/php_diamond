@@ -36,8 +36,15 @@ $default_controller = "AuctionController";
 //after index.php e.g. <action>_<controller>
 //if no '_', then controller defaults to AuctionController
 //*******************************************************
-$url = $_SERVER['REQUEST_URI'];
+$url = $_SERVER['PHP_SELF'];
 $arr = parse_url($url);
+
+// print($url.'<br>');
+// print_r($arr);
+// print('<br>');
+// print($_SERVER['HTTP_HOST'].'<br>');
+// print($_SERVER['PHP_SELF'].'<br>');
+// print($_SERVER['QUERY_STRING'].'<br>');
 
 $path_pieces = explode("/",$arr["path"]);
 $key_index = array_search("index.php", $path_pieces);
@@ -83,8 +90,10 @@ try {
 	$response["result"] = "error";
 	
 	$msg = $e->getMessage();
-	if(!empty($msg))
+	if(!empty($msg)) {
 		$response["error"] = $e->getMessage();
+		print $response["error"];
+	}
 }
 
 ?>

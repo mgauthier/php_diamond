@@ -1,0 +1,14 @@
+AuthType Basic
+AuthName "My Protected Area"
+AuthUserFile /Users/mgauthier/Sites/php_diamond/.htpasswd
+Require valid-user
+
+Options +FollowSymLinks  
+RewriteBase /php_diamond/
+RewriteEngine On
+  
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+ErrorDocument 404 /index.php
