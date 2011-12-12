@@ -1,6 +1,7 @@
 <?= self::link('/',"Home") ?>
-
+<div>
 <?= self::image('pic.jpg', array("id" => "imgID", "width" => "100px", "class" => "small_pic")) ?>
+</div>
 <br>
 This is the Auction List Page
 <br>
