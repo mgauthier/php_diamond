@@ -1,0 +1,9 @@
+* {
+	text-align:center;
+	color:#f00;
+	font-weight:bold;
+}
+
+.small_pic {
+	border:1px solid red;
+}
