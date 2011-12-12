@@ -10,10 +10,16 @@
 
 ===Running the script
 
-Go to <web_url>/index.php/<action and query string>
+Go to <web_url>/<class>/<action and query string>
 
-e.g. http://www.mysite.com/index.php/add_user?userId=1&budget=1000
+e.g. http://www.mysite.com/user/add?userId=1&budget=1000
 
+===Helpers
+
+E.g. 
+<?= self::stylesheet('style') ?>
+<?= self::javascript('jquery-1.7.1.min') ?>
+<?= self::image('pic.jpg', array("id" => "imgID", "width" => "100px", "class" => "small_pic")) ?>
 
 ===Other
 

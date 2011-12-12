@@ -7,7 +7,6 @@ class AuctionController extends DiamondBaseController
 	}
 	
 	public static function allGET($params) {
-		
 		self::render('all');
 	}
 	
