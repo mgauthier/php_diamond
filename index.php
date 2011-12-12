@@ -1,12 +1,13 @@
 <?php
 
 require_once('application/db/db.php');
+require_once('application/DiamondBase.php');
 
 function __autoload($class){
 //	print "__autoload:".$class."<br/>";
 	
 	$file = $class.".php";
-	$include_dirs = array("application/controllers/", "application/models/", "application/views/", "application/");
+	$include_dirs = array("application/controllers/", "application/models/", "application/views/");
 	
 	foreach($include_dirs as $dir) {
 		if(file_exists($dir.$file)) {

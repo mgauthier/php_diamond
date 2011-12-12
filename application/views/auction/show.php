@@ -2,10 +2,6 @@
 <br>
 This is the Auction List Page
 <br>
-<? 
-self::partial('auction','show'); 
-?>
+<? self::partial('auction','show'); ?>
 <br>
-<? 
-self::partial('user','default'); 
-?>	
+<? self::partial('user','default'); ?>	
