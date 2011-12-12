@@ -11,6 +11,11 @@ class DiamondBase {
 	protected static function link_path($path) {
 		return self::$_base_dir.$path;
 	}
+
+	protected static function redirect($path) {
+		header('Location: '.self::link_path($path));
+	}
+
 	protected static function public_dir() {
 		return self::$_base_dir.self::$_public_dir;
 	}
