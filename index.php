@@ -6,24 +6,26 @@ function __autoload($class){
 //	print "__autoload:".$class."<br/>";
 	
 	$file = $class.".php";
-	$include_dirs = array("application/controllers/", "application/models/", "application/views/");
+	$include_dirs = array("application/controllers/", "application/models/", "application/views/", "application/");
 	
 	foreach($include_dirs as $dir) {
 		if(file_exists($dir.$file)) {
 		    require_once($dir.$file);
-		} else {
-			$dir_files = scandir($dir);
-			foreach($dir_files as $dir_file) {
+	    	//print("INCLUDE ".$file."!!!!<br/>");
+		} 
+		// else {
+		// 	$dir_files = scandir($dir);
+		// 	foreach($dir_files as $dir_file) {
 				
-				if(!is_dir($dir_file)) {
-					//print "second level dir file:".$dir.$dir_file."/".$file."<br/>";
-					if(file_exists($dir.$dir_file.'/'.$file)) {
-					//	print("INCLUDE!!!!<br/>");
-						require_once($dir.$dir_file.'/'.$file);
-					}
-				}		
-			}
-		}
+		// 		if(!is_dir($dir_file)) {
+		// 			print "second level dir file:".$dir.$dir_file."/".$file."<br/>";
+		// 			if(file_exists($dir.$dir_file.'/'.$file)) {
+		// 				print("INCLUDE ".$file."!!!!<br/>");
+		// 				require_once($dir.$dir_file.'/'.$file);
+		// 			}
+		// 		}		
+		// 	}
+		// }
 	}
 }
 	
@@ -70,8 +72,9 @@ try {
 		}
 		$view = $view;
 
-		//print "Controller:".$controller."<br/> Action:".$action."<br/> View:".$view;
-	
+	 	$action .= $_SERVER['REQUEST_METHOD'];
+
+		//print "Controller:".$controller."<br/> Action:".$action."<br/> View:".$view;	
 		if(!class_exists($controller)) {
 			throw new Exception("controller does not exist ".$controller);
 		} else if(!method_exists($controller, $action)) {
