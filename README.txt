@@ -21,6 +21,13 @@ E.g.
 <?= self::javascript('jquery-1.7.1.min') ?>
 <?= self::image('pic.jpg', array("id" => "imgID", "width" => "100px", "class" => "small_pic")) ?>
 
+When called from within a controller, the view must be in a folder whose name matches that of the controller
+E.g. /application/controllers/HomeController::show() => /application/views/home/show.php
+render($view, $options=null)
+
+Partial files must beging with _
+partial($view_dir,$view, $options=null) 
+
 ===Other
 
 This is a work in progress.....

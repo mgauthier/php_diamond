@@ -16,6 +16,5 @@
 </div>
 
 <?= self::partial('layouts','footer') ?>
-
 </body>
 </html>
