@@ -83,7 +83,15 @@ try {
 		} else if(!method_exists($controller, $action)) {
 			throw new Exception("action does not exist ".$action);
 		} else {
-			parse_str($arr["query"], $params);
+
+			if($_SERVER['REQUEST_METHOD'] == "GET")
+				parse_str($arr["query"], $params);
+			else if($_SERVER['REQUEST_METHOD'] == "POST") {
+				$params = array();
+				foreach($_POST as $key => $value) {
+					$params[$key] = $value;
+				}
+			}
 
 			if(open_db_connection())
 				$controller::$action($params);

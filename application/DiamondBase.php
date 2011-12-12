@@ -7,7 +7,7 @@ class DiamondBase {
 	protected static $_base_dir = '/php_diamond';
 	protected static $_public_dir = '/public';
 	protected static $views_dir = 'application/views';
-	
+
 	protected static function link_path($path) {
 		return self::$_base_dir.$path;
 	}
@@ -16,11 +16,13 @@ class DiamondBase {
 	}
 
 	public static function stylesheet($filename) {
-		return '<LINK href="'.self::public_dir().'/stylesheets/'.$filename.'.css" rel="stylesheet" type="text/css">';
+		return '<LINK href="'.self::public_dir().'/stylesheets/'.$filename.'.css" rel="stylesheet" type="text/css">
+';
 	}
 
 	public static function javascript($filename) {
-		return '<script src="'.self::public_dir().'/javascripts/'.$filename.'.js" type="text/javascript"></script>';
+		return '<script src="'.self::public_dir().'/javascripts/'.$filename.'.js" type="text/javascript"></script>
+';
 	}
 
 	public static function image($filename,$options) {

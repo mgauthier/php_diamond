@@ -12,9 +12,10 @@
 <body>
 
 <div class="wrapper">
-<? include_once($layout_view) ?>
+	<? include_once($layout_view) ?>
 </div>
 
 <?= self::partial('layouts','footer') ?>
+
 </body>
 </html>
