@@ -30,7 +30,8 @@ function __autoload($class){
 }
 	
 $response = null;
-$default_controller = "AuctionController"; 
+$default_controller = DiamondBase::$default_controller;
+$default_action = DiamondBase::$default_action;
 
 //********************************************************
 //parse the action and controller from the url
@@ -54,7 +55,8 @@ $key_index = array_search("index.php", $path_pieces);
 try {
 	//make sure index.php is in the url and that there is only one command between index.php and the query string
 	if($key_index === 0 || count($path_pieces) != ($key_index+3)) {
-		throw new Exception("invalid path");
+		//throw new Exception("invalid path");
+		$default_controller::$default_action();
 	} else {
 		$controller_dir = $key_index+1 < count($path_pieces) ? $path_pieces[$key_index+1] : null;
 		$action = $key_index+2 < count($path_pieces) ? $path_pieces[$key_index+2] : null;
@@ -83,7 +85,7 @@ try {
 			parse_str($arr["query"], $params);
 
 			if(open_db_connection())
-				$response = $controller::$action($params, $view);
+				$controller::$action($params);
 			else
 				throw new Exception("connection cannot be established");
 		}
