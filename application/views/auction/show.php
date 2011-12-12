@@ -1,3 +1,5 @@
+<?= self::link('/',"Home") ?>
+
 <?= self::image('pic.jpg', array("id" => "imgID", "width" => "100px", "class" => "small_pic")) ?>
 <br>
 This is the Auction List Page
@@ -5,3 +7,6 @@ This is the Auction List Page
 <? self::partial('auction','show'); ?>
 <br>
 <? self::partial('user','default'); ?>	
+
+
+<a href="<?= self::link_path('/')?>">MORE HOME</a>

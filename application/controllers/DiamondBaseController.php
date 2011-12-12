@@ -19,6 +19,10 @@ class DiamondBaseController extends DiamondBase
 		return $ret;
 	}
 
+	public static function link($path,$label,$options=null) {
+		return '<a href="'.self::$_base_dir.$path.'">'.$label.'</a>';
+	}
+
 	public static function partial($view_dir,$view, $options=null) {
 		include(self::$views_dir.'/'.$view_dir.'/_'.$view.'.php');
 	}
