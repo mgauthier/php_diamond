@@ -28,7 +28,12 @@ class DiamondBaseController extends DiamondBase
 		//print('<br>'.'DiamonBaseController::render:'.$view.'<br>');
 		$called_class = get_called_class();
 		$view_dir = self::classToDir($called_class);
-		require_once(self::$views_dir.'/'.$view_dir.'/'.$view.'.php');
+		if($options["layout"]) {
+			$layout_view = self::$views_dir.'/'.$view_dir.'/'.$view.'.php';
+			$layout_file = self::$views_dir.'/layouts/'.$options["layout"].'.php';
+			require_once($layout_file);
+		} else
+			require_once(self::$views_dir.'/'.$view_dir.'/'.$view.'.php');
 	}
 
 	private static function classToDir($controller_class) {
