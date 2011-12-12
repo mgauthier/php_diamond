@@ -13,8 +13,6 @@
 	<br>
 	<? self::partial('auction','show'); ?>
 	<br>
-	<? self::partial('auction','show'); ?>
-	<br>
-	<? self::partial('auction','show'); ?>
+	<? self::partial('user','default'); ?>
 	</body>
 </html>

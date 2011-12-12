@@ -19,12 +19,12 @@ class DiamondBaseController extends DiamondBase
 		return $ret;
 	}
 
-	public static function partial($view_dir,$view) {
+	public static function partial($view_dir,$view, $options=null) {
 		//print('<br>'.'DiamonBaseController::partial:'.$view.'<br>');
 		include(self::$views_dir.'/'.$view_dir.'/_'.$view.'.php');
 	}
 
-	public static function render($view) {
+	public static function render($view, $options=null) {
 		//print('<br>'.'DiamonBaseController::render:'.$view.'<br>');
 		$called_class = get_called_class();
 		$view_dir = self::classToDir($called_class);
