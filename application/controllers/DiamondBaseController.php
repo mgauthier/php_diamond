@@ -1,7 +1,26 @@
 <?php
 class DiamondBaseController
 {	
+	private static $public_dir = '/php_diamond/public/';
 	private static $dir = 'application/views/';
+
+	public static function stylesheet($filename) {
+		return '<LINK href="'.self::$public_dir.'stylesheets/'.$filename.'.css" rel="stylesheet" type="text/css">';
+	}
+
+	public static function javascript($filename) {
+		return '<script src="'.self::$public_dir.'javascripts/'.$filename.'.js" type="text/javascript"></script>';
+	}
+
+	public static function image($filename,$options) {
+		$ret = '<img ';
+		foreach($options as $key => $value) {
+			$ret .= $key.'="'.$value.'" ';
+		}
+		$ret .= 'src="'.self::$public_dir.'images/'.$filename.'" />';
+		return $ret;
+	}
+
 	public static function partial($view_dir,$view) {
 		//print('<br>'.'DiamonBaseController::partial:'.$view.'<br>');
 		include(self::$dir.$view_dir.'/_'.$view.'.php');

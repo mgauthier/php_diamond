@@ -1,14 +1,17 @@
-AuthType Basic
-AuthName "My Protected Area"
-AuthUserFile /Users/mgauthier/Sites/php_diamond/.htpasswd
-Require valid-user
-
 Options +FollowSymLinks  
 RewriteBase /php_diamond/
 RewriteEngine On
-  
+
+
+RewriteCond %{REQUEST_URI} ^(/images|/javascripts|/stylesheets|/robots\.txt|/favicon\.ico)
+RewriteRule ^(.*)$ /php_diamond/public/$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^(/images|/javascripts|/stylesheets|/robots\.txt|/favicon\.ico)
 RewriteRule ^(.*)$ index.php/$1 [L]
 
-ErrorDocument 404 /index.php
+ErrorDocument 401 /public/err/401.php
+ErrorDocument 403 /public/err/403.php
+ErrorDocument 404 /public/err/404.php
+ErrorDocument 500 /public/err/500.php
