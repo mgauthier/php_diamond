@@ -43,7 +43,7 @@ class DiamondBase {
 		return '<a href="'.self::link_path($path).'">'.$label.'</a>';
 	}
 
-	protected static function classToDir($controller_class) {
+	public static function classToDir($controller_class) {
 		$s = $controller_class;
 		$s_arr = preg_split('/([A-Z])/', $s, -1, PREG_SPLIT_DELIM_CAPTURE  );
 		array_pop($s_arr);
@@ -71,7 +71,8 @@ class DiamondBase {
 	}
 
 	public static function typeToFile($name, $type) {
-		return self::typeToPrefix($name).ucfirst($type).".php";
+		$ret = self::typeToPrefix($name);
+		return strtolower($type) != "view" ? $ret.ucfirst($type).".php" : strtolower($ret).".php";
 	}
 
 	public static function typeToClass($name, $type) {

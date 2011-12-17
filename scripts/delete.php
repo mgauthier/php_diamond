@@ -1,10 +1,15 @@
 <?php
 require_once(getcwd()."/application/DiamondBase.php");
-$type = $argv[1] ? strtolower($argv[1]) : null;
-$name = $argv[2] ? strtolower($argv[2]) : null;
 
-// print $type ? $type."\n" : "No valid type entered\n";
-// print $name ? $name."\n" : "No valid name entered\n";
+if(count($argv) == 3) {
+	$type = $argv[1] ? strtolower($argv[1]) : null;
+	$name = $argv[2] ? strtolower($argv[2]) : null;
+} else if (count($argv) == 4) {
+	$type = $argv[1] ? strtolower($argv[1]) : null;
+	$controller = $argv[2] ? strtolower($argv[2]) : null;
+	$name = $argv[3] ? strtolower($argv[3]) : null;
+}
+
 print $type ? "" : "No valid type entered\n";
 print $name ? "" : "No valid name entered\n";
 
@@ -13,7 +18,6 @@ switch($type) {
 	case "mvc":
 		deleteModel($name);
 		deleteController($name);
-		deleteView($name);
 	break;
 	case "model":
 		deleteModel($name);
@@ -22,7 +26,7 @@ switch($type) {
 		deleteController($name);
 	break;
 	case "view":
-		deleteView($name);
+		deleteView($controller, $name);
 	break;
 	default:
 		print "Sorry, $type is not a valid type\n";
@@ -54,7 +58,6 @@ function rrmdir($dir) {
 
 function deleteModel($name) {
 	$dir = "application/models/";
-	$class = $class = DiamondBase::typeToClass($name,"model");
 	$file = $dir.DiamondBase::typeToFile($name,"model");
 
 	$resp = getConfirmation($file);
@@ -69,7 +72,6 @@ function deleteModel($name) {
 
 function deleteController($name) {
 	$dir = "application/controllers/";
-	$class = $class = DiamondBase::typeToClass($name,"controller");
 	$file = $dir.DiamondBase::typeToFile($name,"controller");
 
 	$resp = getConfirmation($file);
@@ -84,5 +86,11 @@ function deleteController($name) {
 }
 
 function deleteView($controller, $name) {
+	$dir = "application/views/";
+	$file = $dir.$controller."/".DiamondBase::typeToFile($name,"view");
 	
+	$resp = getConfirmation($file);
+	if($resp == "y") {
+		unlink($file);
+	}
 }

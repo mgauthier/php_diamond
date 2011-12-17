@@ -1,8 +1,14 @@
 <?php
 require_once(getcwd()."/application/DiamondBase.php");
 
-$type = $argv[1] ? strtolower($argv[1]) : null;
-$name = $argv[2] ? strtolower($argv[2]) : null;
+if(count($argv) == 3) {
+	$type = $argv[1] ? strtolower($argv[1]) : null;
+	$name = $argv[2] ? strtolower($argv[2]) : null;
+} else if (count($argv) == 4) {
+	$type = $argv[1] ? strtolower($argv[1]) : null;
+	$controller = $argv[2] ? strtolower($argv[2]) : null;
+	$name = $argv[3] ? strtolower($argv[3]) : null;
+}
 
 print $type ? "" : "No valid type entered\n";
 print $name ? "" : "No valid name entered\n";
@@ -11,7 +17,6 @@ switch($type) {
 	case "mvc":
 		createModel($name);
 		createController($name);
-		createView($name);
 	break;
 	case "model":
 		createModel($name);
@@ -20,7 +25,7 @@ switch($type) {
 		createController($name);
 	break;
 	case "view":
-		createView($name);
+		createView($controller, $name);
 	break;
 	default:
 		print "Sorry, $type is not a valid type\n";
@@ -67,15 +72,22 @@ function createController($name) {
 		mkdir("application/views/$name");
 
 		//create a default index page
-		$fh = fopen("application/views/$name/index.php", 'w') or die("Can't open file: $name/index.php");
-		$data = "$class default page";
-		fwrite($fh, $data);
-		fclose($fh);
+		createView($name,"index");
 	} else {
 		print("Controller $file already exists.\n");
 	}
 }
 
 function createView($controller, $name) {
-	
+	$dir = "application/views/";
+	$file = $name.".php";
+
+	if(!file_exists($dir.$controller."/".$file)) {
+		$fh = fopen($dir.$controller."/".$file, 'w') or die("Can't open file: $controller/$name.php");
+		$data = "$controller/$name";
+		fwrite($fh, $data);
+		fclose($fh);
+	} else {
+		print("View $controller/$file already exists.\n");
+	}
 }

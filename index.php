@@ -70,7 +70,7 @@ try {
 	if(!class_exists($controller)) {
 		throw new Exception("controller does not exist ".$controller);
 	} else if(!method_exists($controller, $action)) {
-		throw new Exception("action does not exist ".$action);
+		throw new Exception("action does not exist ".DiamondBase::classToDir($controller)."/$action");
 	} else {
 
 		if($_SERVER['REQUEST_METHOD'] == "GET")
