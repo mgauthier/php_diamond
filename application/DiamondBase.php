@@ -77,25 +77,21 @@ class DiamondBase {
 	}
 
 	public static function typeToFile($name, $type) {
-		$pieces = explode("_",$name);
-		$file = "";
-		for($i=0; $i<count($pieces); $i++) {
-			$file .= ucfirst(strtolower($pieces[$i]));
-		}
-		$file .= ucfirst($type).".php";
-
-		return $file;
+		return self::typeToPrefix($name).ucfirst($type).".php";
 	}
 
 	public static function typeToClass($name, $type) {
-		$pieces = explode("_",$name);
-		$class = "";
-		for($i=0; $i<count($pieces); $i++) {
-			$class .= ucfirst(strtolower($pieces[$i]));
-		}
-		$class .= ucfirst($type);
+		return self::typeToPrefix($name).ucfirst($type);
+	}
 
-		return $class;
+	private static function typeToPrefix($name) {
+		$pieces = explode("_",$name);
+		$prefix = "";
+		for($i=0; $i<count($pieces); $i++) {
+			$prefix .= ucfirst(strtolower($pieces[$i]));
+		}
+
+		return $prefix;
 	}
 }
 

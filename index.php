@@ -36,15 +36,11 @@ $default_action = DiamondBase::$default_action;
 
 //********************************************************
 //parse the action and controller from the url
-//assume controller and action are 
-//structured as controller/action
+//assume controller and action are structured as controller/action
 //*******************************************************
 $url = $_SERVER['PHP_SELF'];
 $arr = parse_url($url);
 
-// print($url.'<br>');
-// print_r($arr);
-// print('<br>');
 // print($_SERVER['HTTP_HOST'].'<br>');
 // print($_SERVER['PHP_SELF'].'<br>');
 // print($_SERVER['QUERY_STRING'].'<br>');
