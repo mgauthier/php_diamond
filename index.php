@@ -53,51 +53,45 @@ $path_pieces = explode("/",$arr["path"]);
 $key_index = array_search("index.php", $path_pieces);
 
 try {
-	//make sure index.php is in the url and that there is only one command between index.php and the query string
-	if($key_index === 0 || count($path_pieces) != ($key_index+3)) {
-		//throw new Exception("invalid path");
-		$default_controller::$default_action();
+	//make sure index.php is in the url and that there is at least a controller in the path
+	if($key_index === 0 || count($path_pieces) < ($key_index+2)) {
+		$controller_dir = $default_controller;
+		$action = $default_action;
 	} else {
 		$controller_dir = $key_index+1 < count($path_pieces) ? $path_pieces[$key_index+1] : null;
-		$action = $key_index+2 < count($path_pieces) ? $path_pieces[$key_index+2] : null;
-		
-		if(!$controller_dir) {
-			$controller = $default_controller;		
-		} else {
-			$controller = ucfirst($controller_dir)."Controller";
-		}
-
-		if(!$action) {
-			$view = "index";
-		} else {
-			$view = ucfirst($action)."View";
-		}
-		$view = $view;
-
-	 	$action .= $_SERVER['REQUEST_METHOD'];
-
-		//print "Controller:".$controller."<br/> Action:".$action."<br/> View:".$view;	
-		if(!class_exists($controller)) {
-			throw new Exception("controller does not exist ".$controller);
-		} else if(!method_exists($controller, $action)) {
-			throw new Exception("action does not exist ".$action);
-		} else {
-
-			if($_SERVER['REQUEST_METHOD'] == "GET")
-				parse_str($arr["query"], $params);
-			else if($_SERVER['REQUEST_METHOD'] == "POST") {
-				$params = array();
-				foreach($_POST as $key => $value) {
-					$params[$key] = $value;
-				}
-			}
-
-			if(open_db_connection())
-				$controller::$action($params);
-			else
-				throw new Exception("connection cannot be established");
-		}
+		$action = $key_index+2 < count($path_pieces) && strlen($path_pieces[$key_index+2]) > 0 ? $path_pieces[$key_index+2] : $default_action;
 	}
+	
+	$action .= $_SERVER['REQUEST_METHOD'];
+	$view = DiamondBase::typeToClass($action,"view");
+ 			
+	if(!$controller_dir) {
+		$controller = $default_controller;		
+	} else {
+		$controller = DiamondBase::typeToClass($controller_dir,"controller");
+	}
+
+	if(!class_exists($controller)) {
+		throw new Exception("controller does not exist ".$controller);
+	} else if(!method_exists($controller, $action)) {
+		throw new Exception("action does not exist ".$action);
+	} else {
+
+		if($_SERVER['REQUEST_METHOD'] == "GET")
+			parse_str($arr["query"], $params);
+		else if($_SERVER['REQUEST_METHOD'] == "POST") {
+			$params = array();
+			foreach($_POST as $key => $value) {
+				$params[$key] = $value;
+			}
+		}
+
+		if(open_db_connection())
+			$controller::$action($params);
+		else
+			throw new Exception("connection cannot be established");
+	}
+	
 } catch (Exception $e) {
 	$response = array();
 	$response["result"] = "error";

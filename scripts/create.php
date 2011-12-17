@@ -34,7 +34,7 @@ function createModel($name) {
 	$file = $dir.DiamondBase::typeToFile($name,"model");
 
 	if(!file_exists($file)) {
-		$fh = fopen($file, 'w') or die("Can't open file: $fname");
+		$fh = fopen($file, 'w') or die("Can't open file: $file");
 		$data = "<?php\nclass $class";
 		$data .= " extends $base_model";
 		$data .= " {\n\n\tprotected static function table() { \n\t\treturn \"$name\"; \n\t}\n\n}\n";
@@ -53,15 +53,24 @@ function createController($name) {
 	$file = $dir.DiamondBase::typeToFile($name,"controller");
 
 	if(!file_exists($file)) {
-		$fh = fopen($file, 'w') or die("Can't open file: $fname");
+		//create controller class with default index method
+		$fh = fopen($file, 'w') or die("Can't open file: $file");
 		$data = "<?php\nclass $class";
 		$data .= " extends $base_controller";
-		$data .= " {\n \n \n}\n";
-
+		$data .= " {\n\n";
+		$data .= "\tpublic static function indexGET(".'$params'."=null) {\n\t\tself::render('index');\n\t}\n";
+		$data .= "\n}\n";
 		fwrite($fh, $data);
 		fclose($fh);
 
+		//create views dir
 		mkdir("application/views/$name");
+
+		//create a default index page
+		$fh = fopen("application/views/$name/index.php", 'w') or die("Can't open file: $name/index.php");
+		$data = "$class default page";
+		fwrite($fh, $data);
+		fclose($fh);
 	} else {
 		print("Controller $file already exists.\n");
 	}

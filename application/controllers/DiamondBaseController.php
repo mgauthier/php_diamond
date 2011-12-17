@@ -10,9 +10,12 @@ class DiamondBaseController extends DiamondBase
 		$view_dir = self::classToDir($called_class);
 		$layout_view = self::$views_dir.'/'.$view_dir.'/'.$view.'.php';
 
-		$layout_file = $params["layout"] ? $params["layout"].'.php' : 'default.php';
-		$layout_file = self::$views_dir.'/layouts/'.$layout_file;
+		$layout_file = $params["layout"] ? $params["layout"].'.php' : null;
+		$layout_file = $layout_file ? self::$views_dir.'/layouts/'.$layout_file : null;
 		
-		require_once($layout_file);
+		if($layout_file)
+			require_once($layout_file);
+		else
+			require_once($layout_view);
 	}
 }

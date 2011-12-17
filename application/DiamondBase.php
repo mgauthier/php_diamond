@@ -1,8 +1,8 @@
 <?php 
 class DiamondBase {
 
-	public static $default_controller = "HomeController";
-	public static $default_action = "indexGET";
+	public static $default_controller = "home";
+	public static $default_action = "index";
 
 	protected static $_base_dir = '/php_diamond';
 	protected static $_public_dir = '/public';
