@@ -66,14 +66,14 @@ class DiamondBase {
 
 		$s_arr = preg_split('/([A-Z])/', $toconvert, -1, PREG_SPLIT_DELIM_CAPTURE  );
 		
-		$dir = '';
+		$ret = '';
 		$i=1;
 		for ($i; $i<count($s_arr)-2; $i+=2) {
-			$dir .= strtolower($s_arr[$i]).$s_arr[$i+1].= '_';
+			$ret .= strtolower($s_arr[$i]).$s_arr[$i+1].= '_';
 		}
-		$dir .= strtolower($s_arr[$i]).$s_arr[$i+1];
+		$ret .= strtolower($s_arr[$i]).$s_arr[$i+1];
 	
-		return $dir;
+		return $ret;
 	}
 }
 

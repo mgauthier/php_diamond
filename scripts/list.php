@@ -26,7 +26,10 @@ switch($type) {
 
 function _list($type) {
 	$list = scandir("application/".$type."s");
-	foreach($list as $value) { 
-		print $value != "." && $value != ".." ? DiamondBase::fileToType($value,$type)."\n" : ""; 
-	}
+
+	if($type != "view") {
+		foreach($list as $value) { 
+			print $value != "." && $value != ".." ? DiamondBase::fileToType($value,$type)."\n" : ""; 
+		}
+	} else {}
 }
