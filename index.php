@@ -36,9 +36,8 @@ $default_action = DiamondBase::$default_action;
 
 //********************************************************
 //parse the action and controller from the url
-//assume controller and action are the first item
-//after index.php e.g. <action>_<controller>
-//if no '_', then controller defaults to AuctionController
+//assume controller and action are 
+//structured as controller/action
 //*******************************************************
 $url = $_SERVER['PHP_SELF'];
 $arr = parse_url($url);

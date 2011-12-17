@@ -7,8 +7,9 @@ class HomeController extends DiamondBaseController
 	}
 
 	public static function indexPOST($params=null) {
-		$name = $params['name'];
-		// print $params['name'];
+		
+		//User::insert(array('id'=>'1'));
+
 		self::redirect('/auction/show');
 	}
 }
