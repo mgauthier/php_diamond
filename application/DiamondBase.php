@@ -48,32 +48,26 @@ class DiamondBase {
 		$s_arr = preg_split('/([A-Z])/', $s, -1, PREG_SPLIT_DELIM_CAPTURE  );
 		array_pop($s_arr);
 		array_pop($s_arr);
-
-		$dir = '';
-		$i=1;
-		for ($i; $i<count($s_arr)-2; $i+=2) {
-			$dir .= strtolower($s_arr[$i]).$s_arr[$i+1].= '_';
-		}
-		$dir .= strtolower($s_arr[$i]).$s_arr[$i+1];
-	
-		return $dir;
+		
+		return self::toType($s_arr);
 	}
 
 	public static function fileToType($file,$type) {
 		$f = ucfirst($type).".php";
 		$breakpoint = strpos($file,$f);
 		$toconvert = substr($file,0,$breakpoint);
-
 		$s_arr = preg_split('/([A-Z])/', $toconvert, -1, PREG_SPLIT_DELIM_CAPTURE  );
-		
+
+		return self::toType($s_arr);
+	}
+
+	private static function toType($s_arr) {
 		$ret = '';
 		$i=1;
 		for ($i; $i<count($s_arr)-2; $i+=2) {
 			$ret .= strtolower($s_arr[$i]).$s_arr[$i+1].= '_';
 		}
-		$ret .= strtolower($s_arr[$i]).$s_arr[$i+1];
-	
-		return $ret;
+		return $ret.strtolower($s_arr[$i]).$s_arr[$i+1];	
 	}
 
 	public static function typeToFile($name, $type) {
