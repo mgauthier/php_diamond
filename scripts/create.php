@@ -1,12 +1,14 @@
 <?php
+require_once(getcwd()."/application/DiamondBase.php");
+
 $type = $argv[1] ? strtolower($argv[1]) : null;
 $name = $argv[2] ? strtolower($argv[2]) : null;
 
-print $type ? $type."\n" : "No valid type entered\n";
-print $name ? $name."\n" : "No valid name entered\n";
+print $type ? "" : "No valid type entered\n";
+print $name ? "" : "No valid name entered\n";
 
 switch($type) {
-	case "all":
+	case "mvc":
 		createModel($name);
 		createController($name);
 		createView($name);
@@ -28,8 +30,8 @@ switch($type) {
 function createModel($name) {
 	$base_model = "DiamondBaseModel";
 	$dir = "application/models/";
-	$class = ucfirst($name)."Model";
-	$file = $dir.$class.".php";
+	$class = DiamondBase::typeToClass($name,"model");
+	$file = $dir.DiamondBase::typeToFile($name,"model");
 
 	if(!file_exists($file)) {
 		$fh = fopen($file, 'w') or die("Can't open file: $fname");
@@ -47,8 +49,8 @@ function createModel($name) {
 function createController($name) {
 	$base_controller = "DiamondBaseController";
 	$dir = "application/controllers/";
-	$class = ucfirst($name)."Controller";
-	$file = $dir.$class.".php";
+	$class = DiamondBase::typeToClass($name,"controller");
+	$file = $dir.DiamondBase::typeToFile($name,"controller");
 
 	if(!file_exists($file)) {
 		$fh = fopen($file, 'w') or die("Can't open file: $fname");

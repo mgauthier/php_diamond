@@ -1,4 +1,5 @@
 <?php
+require_once(getcwd()."/application/DiamondBase.php");
 $type = $argv[1] ? strtolower($argv[1]) : null;
 $name = $argv[2] ? strtolower($argv[2]) : null;
 
@@ -9,7 +10,7 @@ print $name ? "" : "No valid name entered\n";
 
 
 switch($type) {
-	case "all":
+	case "mvc":
 		deleteModel($name);
 		deleteController($name);
 		deleteView($name);
@@ -52,10 +53,9 @@ function rrmdir($dir) {
 } 
 
 function deleteModel($name) {
-	$base_model = "DiamondBaseModel";
 	$dir = "application/models/";
-	$class = ucfirst($name)."Model";
-	$file = $dir.$class.".php";
+	$class = $class = DiamondBase::typeToClass($name,"model");
+	$file = $dir.DiamondBase::typeToFile($name,"model");
 
 	$resp = getConfirmation($file);
 	if($resp == "y") {
@@ -68,10 +68,9 @@ function deleteModel($name) {
 }
 
 function deleteController($name) {
-	$base_controller = "DiamondBaseController";
 	$dir = "application/controllers/";
-	$class = ucfirst($name)."Controller";
-	$file = $dir.$class.".php";
+	$class = $class = DiamondBase::typeToClass($name,"controller");
+	$file = $dir.DiamondBase::typeToFile($name,"controller");
 
 	$resp = getConfirmation($file);
 	if($resp == "y") {
