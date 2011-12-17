@@ -1,6 +1,6 @@
 <?php
 
-require_once('application/db/db.php');
+require_once('db/db.php');
 require_once('application/DiamondBase.php');
 
 function __autoload($class){
@@ -52,13 +52,13 @@ try {
 	//make sure index.php is in the url and that there is at least a controller in the path
 	if($key_index === 0 || count($path_pieces) < ($key_index+2)) {
 		$controller_dir = $default_controller;
-		$action = $default_action;
+		$_action = $default_action;
 	} else {
-		$controller_dir = $key_index+1 < count($path_pieces) ? $path_pieces[$key_index+1] : null;
-		$action = $key_index+2 < count($path_pieces) && strlen($path_pieces[$key_index+2]) > 0 ? $path_pieces[$key_index+2] : $default_action;
+		$controller_dir = $key_index+1 < count($path_pieces) ? strtolower($path_pieces[$key_index+1]) : null;
+		$_action = $key_index+2 < count($path_pieces) && strlen($path_pieces[$key_index+2]) > 0 ? $path_pieces[$key_index+2] : $default_action;
 	}
 	
-	$action .= $_SERVER['REQUEST_METHOD'];
+	$action = $_action.$_SERVER['REQUEST_METHOD'];
 	$view = DiamondBase::typeToClass($action,"view");
  			
 	if(!$controller_dir) {
@@ -71,6 +71,8 @@ try {
 		throw new Exception("controller does not exist ".$controller);
 	} else if(!method_exists($controller, $action)) {
 		throw new Exception("action does not exist ".DiamondBase::classToDir($controller)."/$action");
+	} else if(!DiamondBase::view_exists($controller_dir, $_action)) {
+		throw new Exception("view does not exist ".$controller_dir."/".$_action.".php");
 	} else {
 
 		if($_SERVER['REQUEST_METHOD'] == "GET")

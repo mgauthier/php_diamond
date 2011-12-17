@@ -43,6 +43,10 @@ class DiamondBase {
 		return '<a href="'.self::link_path($path).'">'.$label.'</a>';
 	}
 
+	public static function view_exists($controller_dir,$action) {
+		return file_exists("application/views/$controller_dir/".$action.".php");
+	}
+
 	public static function classToDir($controller_class) {
 		$s = $controller_class;
 		$s_arr = preg_split('/([A-Z])/', $s, -1, PREG_SPLIT_DELIM_CAPTURE  );
