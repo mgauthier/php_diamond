@@ -48,6 +48,37 @@ partial($controller,$view, $options=null)
 e.g. <? self::partial('user','default'); ?> //Renders /application/views/user/_default.php
 
 
+===Models & Tables
+
+1. Create your default model: 
+
+e.g. php scripts/create.php model big_car
+
+class BigCarModel extends DiamondBaseModel {
+
+	public static function table() { return "big_car" } 
+	public static function properties() {
+		return array( );
+	}
+}
+
+2.  Add your table properties
+class BigCarModel extends DiamondBaseModel {
+
+	public static function table() { return "big_car" } 
+	public static function properties() {
+		return array( 
+			array("name" => "name", "type" => "varchar", "length" => 255),
+			array("name" => "year", "type" => "int")
+		);
+	}
+}
+
+3. Create the table
+e.g. 
+php scripts/create.php table big_car
+Created table:big_car
+
 ===Other
 PHP Version used in development: PHP 5.3.4
 
