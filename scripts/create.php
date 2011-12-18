@@ -101,7 +101,11 @@ function createTable($model_name) {
 	$class = DiamondBase::typeToClass($model_name,"model");
 	
 	if(open_db_connection())
-		$class::create_table();
+		if($class::create_table()) {
+			print "Created table: $model_name\n";
+		} else {
+			print "Failed to create table: $model_name\n";
+		}
 	else
 		print "Cannot connect to db.\n";
 }

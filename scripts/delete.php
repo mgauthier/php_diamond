@@ -1,5 +1,7 @@
 <?php
-require_once(getcwd()."/application/DiamondBase.php");
+require_once("db/db.php");
+require_once("autoload.php");
+require_once("application/DiamondBase.php");
 
 if(count($argv) == 3) {
 	$type = $argv[1] ? strtolower($argv[1]) : null;
@@ -102,7 +104,14 @@ function deleteTable($model_name) {
 	$class = DiamondBase::typeToClass($model_name,"model");
 	
 	if(open_db_connection())
-		$class::delete_table();
+		$resp = getConfirmation($model_name);
+		if($resp == "y") {
+			if($class::delete_table()) {
+				print "Deleted table: $model_name\n";
+			} else {
+				print "Failed to delete table: $model_name\n";
+			}
+		}
 	else
 		print "Cannot connect to db.\n";
 }
