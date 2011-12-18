@@ -226,5 +226,35 @@ abstract class DiamondBaseModel
 		return $result;
 
 	}
+
+/////////////////////////////////////////
+//CREATE TABLE FUNCTION/////////////////////////////
+//WARNING:: ASSUMES VALUES ARE CLEANED BY CALLER	
+	private static function parse_attributes_for_create($properties)
+	{
+		result = "";
+		for($i=0; $i<count($properties); $i++) {
+			
+		}
+		
+		return $result;
+	}
+
+	protected static function create_table($properties) {
+		$class = get_called_class();
+		$table = $class::table();
+
+		$mysql_properties = self::parse_properties_for_create($properties);
+		mysql_query("create table if not exists $table ( $mysql_properties );");
+
+		return !mysql_error();
+	}
+	protected static function delete_table() {
+		$class = get_called_class();
+		$table = $class::table();
+		mysql_query("drop table if exists $table;");
+
+		return !mysql_error();
+	}
 }	
 ?>
