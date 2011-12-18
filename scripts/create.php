@@ -78,9 +78,9 @@ function createController($name) {
 	}
 }
 
-function createView($controller, $name) {
+function createView($controller, $name, $partial=false) {
 	$dir = "application/views/";
-	$file = $name.".php";
+	$file = $partial ? "_".$name.".php" : $name.".php";
 
 	if(!file_exists($dir.$controller."/".$file)) {
 		$fh = fopen($dir.$controller."/".$file, 'w') or die("Can't open file: $controller/$name.php");

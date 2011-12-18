@@ -230,19 +230,29 @@ abstract class DiamondBaseModel
 /////////////////////////////////////////
 //CREATE TABLE FUNCTION/////////////////////////////
 //WARNING:: ASSUMES VALUES ARE CLEANED BY CALLER	
-	private static function parse_attributes_for_create($properties)
+
+	//format {name,type,length,required}
+	private static function parse_properties_for_create($properties)
 	{
-		result = "";
+		$result = "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY";
 		for($i=0; $i<count($properties); $i++) {
-			
+			$result .= ",";
+			$p = $properties[$i];
+
+			$result .= $p["name"]." ";
+			$result .= $p["type"]." ";
+			$result .= $p["length"] ? "(".$p["length"].") " : "";
+			$result .= $p["required"] == true ? "NOT NULL" : "";
+			$result .= $p["default"] ? "default ".$p["default"] : "";	
 		}
 		
 		return $result;
 	}
 
-	protected static function create_table($properties) {
+	protected static function create_table() {
 		$class = get_called_class();
 		$table = $class::table();
+		$properties = $class::$properties;
 
 		$mysql_properties = self::parse_properties_for_create($properties);
 		mysql_query("create table if not exists $table ( $mysql_properties );");
