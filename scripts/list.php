@@ -5,7 +5,7 @@ $type = $argv[1] ? strtolower($argv[1]) : null;
 print $type ? "" : "No valid type entered\n";
 
 switch($type) {
-	case "all":
+	case "mvc":
 		print "Models:\n";
 		_list("model");
 		print "\nControllers:\n";

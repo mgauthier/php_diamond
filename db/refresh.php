@@ -13,7 +13,7 @@ function __autoload($class){
 
 if(open_db_connection()) {
 	$table_list = table_list();
-	
+
 	print "Refresh tables...\n";
 	$dir = DiamondBase::$models_dir;
 	$models = scandir($dir);
@@ -27,8 +27,6 @@ if(open_db_connection()) {
 				} else {
 					print $class::table()."*\n";		
 				}
-				
-				
 			}
 		}
 	}
