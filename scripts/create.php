@@ -1,4 +1,6 @@
 <?php
+include_once("autoload.php");
+require_once("db/db.php");
 require_once(getcwd()."/application/DiamondBase.php");
 
 if(count($argv) == 3) {
@@ -26,6 +28,9 @@ switch($type) {
 	break;
 	case "view":
 		createView($controller, $name);
+	break;
+	case "table":
+		createTable($name);
 	break;
 	default:
 		print "Sorry, $type is not a valid type\n";
@@ -90,4 +95,13 @@ function createView($controller, $name, $partial=false) {
 	} else {
 		print("View $controller/$file already exists.\n");
 	}
+}
+
+function createTable($model_name) {
+	$class = DiamondBase::typeToClass($model_name,"model");
+	
+	if(open_db_connection())
+		$class::create_table();
+	else
+		print "Cannot connect to db.\n";
 }

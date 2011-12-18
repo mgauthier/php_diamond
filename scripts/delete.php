@@ -28,6 +28,9 @@ switch($type) {
 	case "view":
 		deleteView($controller, $name);
 	break;
+	case "table":
+		deleteTable($name);
+	break;
 	default:
 		print "Sorry, $type is not a valid type\n";
 	break;
@@ -93,4 +96,13 @@ function deleteView($controller, $name) {
 	if($resp == "y") {
 		unlink($file);
 	}
+}
+
+function deleteTable($model_name) {
+	$class = DiamondBase::typeToClass($model_name,"model");
+	
+	if(open_db_connection())
+		$class::delete_table();
+	else
+		print "Cannot connect to db.\n";
 }
