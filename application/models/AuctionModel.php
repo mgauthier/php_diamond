@@ -1,10 +1,8 @@
 <?php
 class AuctionModel extends DiamondBaseModel
 {
-	public static function table()
-	{
-		return "auctions";
-	}
+	public static $table_name = "auctions";
+	public static $table_properties = array();
 
 	public static function add($itemId, $userId, $isActive)
 	{

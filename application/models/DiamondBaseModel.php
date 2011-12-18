@@ -5,8 +5,9 @@
 abstract class DiamondBaseModel
 {
 
-	//return a string of the table name e.g. "users"
-	protected abstract static function table();
+	//a string of the table name e.g. "users"
+	protected abstract static $table_name;
+	protected abstract static $table_properties;
 	
 /////////////////////////////////////////
 //SELECT FUNCTIONS/////////////////////////////
@@ -17,7 +18,7 @@ abstract class DiamondBaseModel
 		$class = get_called_class();
 		
 		$clean_id = mysql_real_escape_string($id);
-		$res = mysql_query("select id from ".$class::table()." where id=".$clean_id);
+		$res = mysql_query("select id from ".$class::$table_name." where id=".$clean_id);
 		
 		if(!$res)
 			return false;
@@ -31,7 +32,7 @@ abstract class DiamondBaseModel
 	{
 		$class = get_called_class();
 		
-		$res = mysql_query("select id from ".$class::table()." where ".$condition);
+		$res = mysql_query("select id from ".$class::$table_name." where ".$condition);
 
 		if(!$res)
 			return false;
@@ -44,7 +45,7 @@ abstract class DiamondBaseModel
 	{
 		$class = get_called_class();
 		
-		$res = mysql_query("select * from ".$class::table());
+		$res = mysql_query("select * from ".$class::$table_name);
 		
 		if(!$res)
 			return null;
@@ -64,7 +65,7 @@ abstract class DiamondBaseModel
 		$class = get_called_class();
 		
 		$clean_id = mysql_real_escape_string($id);		
-		$res = mysql_query("select * from ".$class::table()." where id=".$clean_id);
+		$res = mysql_query("select * from ".$class::$table_name." where id=".$clean_id);
 		
 		if(!$res)
 			return null;
@@ -80,7 +81,7 @@ abstract class DiamondBaseModel
 	{
 		$class = get_called_class();
 		
-		$res = mysql_query("select * from ".$class::table()." where ".$condition);
+		$res = mysql_query("select * from ".$class::$table_name." where ".$condition);
 		
 		if(!$res)
 			return null;
@@ -94,7 +95,7 @@ abstract class DiamondBaseModel
 	protected static function find_select($columns)
 	{
 		$class = get_called_class();
-		$table = $class::table();
+		$table = $class::$table_name;
 	
 		$result = null;	
 		$cols = mysql_real_escape_string($columns);
@@ -116,7 +117,7 @@ abstract class DiamondBaseModel
 	protected static function find_select_where($columns, $condition)
 	{
 		$class = get_called_class();
-		$table = $class::table();
+		$table = $class::$table_name;
 	
 		$result = null;	
 		$cols = mysql_real_escape_string($columns);
@@ -164,7 +165,7 @@ abstract class DiamondBaseModel
 		$clean_id = mysql_real_escape_string($id);
 		$set_attributes = self::parse_attributes_for_update($attributes);
 		
-		mysql_query("update ".$class::table()." set ".$set_attributes." where id=".$clean_id);
+		mysql_query("update ".$class::$table_name." set ".$set_attributes." where id=".$clean_id);
 		
 		return !mysql_error();
 	}
@@ -178,7 +179,7 @@ abstract class DiamondBaseModel
 		
 		$set_attributes = self::parse_attributes_for_update($attributes);
 				
-		mysql_query("update ".$class::table()." set ".$set_attributes." where ".$condition);		
+		mysql_query("update ".$class::$table_name." set ".$set_attributes." where ".$condition);		
 		
 		return !mysql_error();
 	}
@@ -211,7 +212,7 @@ abstract class DiamondBaseModel
 	protected static function insert($attributes)
 	{
 		$class = get_called_class();
-		$table = $class::table();
+		$table = $class::$table_name;
 		$result = false;
 		
 		$insert_values = self::parse_attributes_for_insert($attributes, $table);
@@ -251,8 +252,8 @@ abstract class DiamondBaseModel
 
 	public static function create_table() {
 		$class = get_called_class();
-		$table = $class::table();
-		$properties = $class::$properties;
+		$table = $class::$table_name;
+		$properties = $class::$table_properties;
 		$mysql_properties = self::parse_properties_for_create($properties);
 		mysql_query("create table if not exists $table ( $mysql_properties )");
 
@@ -260,7 +261,7 @@ abstract class DiamondBaseModel
 	}
 	public static function delete_table() {
 		$class = get_called_class();
-		$table = $class::table();
+		$table = $class::$table_name;
 		mysql_query("drop table if exists $table;");
 
 		return !mysql_error();

@@ -45,9 +45,10 @@ function createModel($name) {
 
 	if(!file_exists($file)) {
 		$fh = fopen($file, 'w') or die("Can't open file: $file");
-		$data = "<?php\nclass $class";
-		$data .= " extends $base_model";
-		$data .= " {\n\n\tpublic static function table() { \n\t\treturn \"$name\"; \n\t}\n\n}\n";
+		$data = "<?php\nclass $class extends $base_model {\n";
+		$data .= "\n\tpublic static ".'$table_name'."=\"$name\"; \n";
+		$data .= "\n\tpublic static ".'$table_properties'."= array(); \n";
+		$data .= "\n}\n";
 
 		fwrite($fh, $data);
 		fclose($fh);

@@ -1,10 +1,8 @@
 <?php
 class UserModel extends DiamondBaseModel
 {	
-	public static function table()
-	{
-		return "users";
-	}
+	public static $table_name = "users";
+	public static $table_properties = array();
 	
 	public static function add($userId,$budget)
 	{
