@@ -15,9 +15,9 @@ if(open_db_connection()) {
 			if ($class != DiamondBase::$base_model) {
 
 				if(array_search($class::table(),$table_list)) {
-					print $class::$table_name."\n";		
+					print $class::table()."\n";		
 				} else {
-					print $class::$table_name."*\n";		
+					print $class::table()."*\n";		
 				}
 			}
 		}

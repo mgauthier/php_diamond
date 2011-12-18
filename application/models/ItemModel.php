@@ -1,8 +1,10 @@
 <?php
 class ItemModel extends DiamondBaseModel
 {
-	public static $table_name = "items";
-	public static $table_properties = array();
+	public static function table()
+	{
+		return "items";
+	}
 	
 	public static function add($userId,$itemName,$startPrice)
 	{

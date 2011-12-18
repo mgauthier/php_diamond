@@ -27,7 +27,7 @@ try {
 		$controller_dir = $default_controller;
 		$_action = $default_action;
 	} else {
-		$controller_dir = $key_index+1 < count($path_pieces) ? strtolower($path_pieces[$key_index+1]) : $default_controller;
+		$controller_dir = $key_index+1 < count($path_pieces) ? strtolower($path_pieces[$key_index+1]) : null;
 		$_action = $key_index+2 < count($path_pieces) && strlen($path_pieces[$key_index+2]) > 0 ? $path_pieces[$key_index+2] : $default_action;
 	}
 	
