@@ -1,4 +1,9 @@
 
+===General
+
+http://www.mysite.com/<controller>/<action>
+e.g. http://www.mysite.com/user/show_all
+
 ===Setup
 1. Modify the file "application/db/db.php" to the correct database credentials for your system
 2. Copy all files into your web directory
@@ -47,6 +52,30 @@ Partial filenames must begin with _
 partial($controller,$view, $options=null) 
 e.g. <? self::partial('user','default'); ?> //Renders /application/views/user/_default.php
 
+===Controllers
+
+==Declaration
+class BigCarController extends DiamondBaseController {
+
+==Methods example
+public static function showGET($params=null) {	
+	self::render('show',array("layout" => "default"));
+}
+
+public static function addPOST($params)
+{		
+	$userId = $params["userId"];
+	$itemName = $params["itemName"];
+	$startPrice = $params["startPrice"];
+	
+	$response = ItemModel::add($userId,$itemName,$startPrice);
+	
+	echo $response; 
+}
+
+public static function indexPOST($params=null) {
+	self::redirect('/auction/show');
+}
 
 ===Models & Tables
 
@@ -78,6 +107,34 @@ class BigCarModel extends DiamondBaseModel {
 e.g. 
 php scripts/create.php table big_car
 Created table:big_car
+
+==Examples
+ItemModel::find($iid);	
+self::find_select("id,budget");
+self::find_where("item_id=".$iid." and active=1 for update");
+$user = UserModel::find_where("id=".$uid." for update");
+AuctionModel::find_select_where("sum(current_price) as blocked_budget", "active=1 and best_bidder_id=".$uid);
+
+self::update_attributes($auction->id, array("active" => 0, "ended_at" => "NOW()")
+
+self::insert(array("item_id"=>$iid, "user_id"=>$uid, "current_price"=>$item->start_price, "active"=>$active, "created_at"=>"NOW()", "started_at"=>$start_time))
+
+if(AuctionModel::exists($aid) && UserModel::exists($uid))
+
+==More Examples
+$aid = intval(mysql_real_escape_string($auctionId));
+$uid = intval(mysql_real_escape_string($userId));
+$amt = intval(mysql_real_escape_string($amount));
+
+mysql_query("SET autocommit = 0");
+mysql_query("START TRANSACTION");
+
+//do stuff
+
+if($response["result"] == "success")
+	mysql_query("COMMIT");
+else
+	mysql_query("ROLLBACK");
 
 ===Other
 PHP Version used in development: PHP 5.3.4
