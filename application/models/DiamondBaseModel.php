@@ -7,6 +7,7 @@ abstract class DiamondBaseModel
 
 	//return a string of the table name e.g. "users"
 	protected abstract static function table();
+	protected abstract static function properties();
 	
 /////////////////////////////////////////
 //SELECT FUNCTIONS/////////////////////////////
@@ -240,8 +241,15 @@ abstract class DiamondBaseModel
 			$p = $properties[$i];
 
 			$result .= $p["name"]." ";
-			$result .= $p["type"];
-			$result .= $p["length"] ? "(".$p["length"].") " : " ";
+			
+			$type = $p["type"] ? $p["type"] : "varchar";
+			if(!$p["length"] && $type == "varchar")
+				$length = "(255)";
+			else if($p["length"])
+				$length = "(".$p["length"].")";
+
+			$result .= $type;
+			$result .= $length;
 			$result .= $p["required"] == true ? " NOT NULL" : "";
 			$result .= $p["default"] ? " default ".$p["default"] : "";	
 		}
@@ -252,7 +260,7 @@ abstract class DiamondBaseModel
 	public static function create_table() {
 		$class = get_called_class();
 		$table = $class::table();
-		$properties = $class::$properties;
+		$properties = $class::properties();
 		$mysql_properties = self::parse_properties_for_create($properties);
 		mysql_query("create table if not exists $table ( $mysql_properties )");
 
