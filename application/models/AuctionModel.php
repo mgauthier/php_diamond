@@ -1,7 +1,7 @@
 <?php
-class AuctionModel extends GenericModel
+class AuctionModel extends DiamondBaseModel
 {
-	protected static function table()
+	public static function table()
 	{
 		return "auctions";
 	}

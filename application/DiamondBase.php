@@ -1,12 +1,15 @@
 <?php 
 class DiamondBase {
-
+	public static $models_dir = "application/models";
+	public static $base_model = "DiamondBaseModel";
+	
 	public static $default_controller = "home";
 	public static $default_action = "index";
 
 	protected static $_base_dir = '/php_diamond';
 	protected static $_public_dir = '/public';
 	protected static $views_dir = 'application/views';
+
 
 	protected static function link_path($path) {
 		return self::$_base_dir.$path;
@@ -55,7 +58,9 @@ class DiamondBase {
 		
 		return self::toType($s_arr);
 	}
-
+	public static function fileToClass($file) {
+		return substr($file,0,strpos($file,".php"));
+	}
 	public static function fileToType($file,$type) {
 		$f = ucfirst($type).".php";
 		$breakpoint = strpos($file,$f);

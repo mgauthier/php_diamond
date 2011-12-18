@@ -2,7 +2,7 @@
 //generic model, aimed at working with single tables
 //extend this class and implement the table() method to 
 //get access to these methods
-abstract class GenericModel
+abstract class DiamondBaseModel
 {
 
 	//return a string of the table name e.g. "users"

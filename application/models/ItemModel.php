@@ -1,7 +1,7 @@
 <?php
-class ItemModel extends GenericModel
+class ItemModel extends DiamondBaseModel
 {
-	protected static function table()
+	public static function table()
 	{
 		return "items";
 	}

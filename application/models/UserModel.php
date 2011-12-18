@@ -1,7 +1,7 @@
 <?php
-class UserModel extends GenericModel
+class UserModel extends DiamondBaseModel
 {	
-	protected static function table()
+	public static function table()
 	{
 		return "users";
 	}
