@@ -98,4 +98,3 @@ class DiamondBase {
 		return $prefix;
 	}
 }
-

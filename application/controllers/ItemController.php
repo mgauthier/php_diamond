@@ -12,4 +12,3 @@ class ItemController
 		return $response; 
 	}
 }
-?>

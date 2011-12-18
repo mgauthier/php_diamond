@@ -73,5 +73,3 @@ try {
 		print $response["error"];
 	}
 }
-
-?>

@@ -266,4 +266,3 @@ abstract class DiamondBaseModel
 		return !mysql_error();
 	}
 }	
-?>

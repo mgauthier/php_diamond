@@ -31,4 +31,3 @@ function table_list() {
 	}
 	return $list;
 }
-?>

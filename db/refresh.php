@@ -29,7 +29,5 @@ if(open_db_connection()) {
 
 
 //Compare tables currently in db with models
-
 //Delete any tables that do not have a corresponding model
-
 //Create tables that do no exist for all models
