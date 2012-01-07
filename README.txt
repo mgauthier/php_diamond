@@ -29,8 +29,16 @@ php scripts/list.php (models|controllers|mvc)
 ===Helpers
 
 E.g. 
+<link href="stylesheets/style.css" rel="stylesheet" type="text/css"> 
+OR 
 <?= self::stylesheet('style') ?>
-<?= self::javascript('jquery-1.7.1.min') ?>
+
+<script type="text/javascript" src="javascripts/app.js"/> 
+OR 
+<?= self::javascript('app') ?>
+
+<img src="images/pic.jpg" id="imgID" class="small_pic" style="width:100px"/> 
+OR 
 <?= self::image('pic.jpg', array("id" => "imgID", "width" => "100px", "class" => "small_pic")) ?>
 
 <?= self::link('/',"Home") ?>

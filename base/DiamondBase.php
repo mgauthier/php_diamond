@@ -6,10 +6,17 @@ class DiamondBase {
 	public static $default_controller = "home";
 	public static $default_action = "index";
 
-	protected static $_base_dir = '/php_diamond';
+	protected static $_base_dir = null;
 	protected static $_public_dir = '/public';
 	protected static $views_dir = 'application/views';
 
+	static function init()
+	{
+		global $config;
+		if(!self::$_base_dir) {
+		    self::$_base_dir = $config["base_dir"];
+		}
+	}
 
 	protected static function link_path($path) {
 		return self::$_base_dir.$path;

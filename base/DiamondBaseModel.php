@@ -16,9 +16,10 @@ abstract class DiamondBaseModel
 	protected static function exists($id)
 	{
 		$class = get_called_class();
-		
+		$table = $class::table();
+
 		$clean_id = mysql_real_escape_string($id);
-		$res = mysql_query("select id from ".$class::table()." where id=".$clean_id);
+		$res = mysql_query("select id from $table where id=$clean_id");
 		
 		if(!$res)
 			return false;
@@ -31,8 +32,9 @@ abstract class DiamondBaseModel
 	protected static function exists_where($condition)
 	{
 		$class = get_called_class();
+		$table = $class::table();
 		
-		$res = mysql_query("select id from ".$class::table()." where ".$condition);
+		$res = mysql_query("select id from $table where ".$condition);
 
 		if(!$res)
 			return false;
@@ -44,8 +46,9 @@ abstract class DiamondBaseModel
 	protected static function all()
 	{
 		$class = get_called_class();
+		$table = $class::table();
 		
-		$res = mysql_query("select * from ".$class::table());
+		$res = mysql_query("select * from $table";
 		
 		if(!$res)
 			return null;
@@ -63,9 +66,10 @@ abstract class DiamondBaseModel
 	protected static function find($id)
 	{
 		$class = get_called_class();
+		$table = $class::table();
 		
 		$clean_id = mysql_real_escape_string($id);		
-		$res = mysql_query("select * from ".$class::table()." where id=".$clean_id);
+		$res = mysql_query("select * from $table where id=$clean_id");
 		
 		if(!$res)
 			return null;
@@ -80,8 +84,9 @@ abstract class DiamondBaseModel
 	protected static function find_where($condition)
 	{
 		$class = get_called_class();
+		$table = $class::table();
 		
-		$res = mysql_query("select * from ".$class::table()." where ".$condition);
+		$res = mysql_query("select * from $table where ".$condition);
 		
 		if(!$res)
 			return null;
@@ -100,7 +105,7 @@ abstract class DiamondBaseModel
 		$result = null;	
 		$cols = mysql_real_escape_string($columns);
 		
-		$res = mysql_query("select ".$cols." from ".$table);
+		$res = mysql_query("select $cols from $table");
 		
 		if(!mysql_error())
 		{
@@ -122,7 +127,7 @@ abstract class DiamondBaseModel
 		$result = null;	
 		$cols = mysql_real_escape_string($columns);
 		
-		$res = mysql_query("select ".$cols." from ".$table." where ".$condition);
+		$res = mysql_query("select $cols from $table where ".$condition);
 		
 		if(!mysql_error())
 		{
@@ -161,11 +166,12 @@ abstract class DiamondBaseModel
 	protected static function update_attributes($id, $attributes)
 	{
 		$class = get_called_class();
+		$table = $class::table();
 		
 		$clean_id = mysql_real_escape_string($id);
 		$set_attributes = self::parse_attributes_for_update($attributes);
 		
-		mysql_query("update ".$class::table()." set ".$set_attributes." where id=".$clean_id);
+		mysql_query("update $table set ".$set_attributes." where id=$clean_id");
 		
 		return !mysql_error();
 	}
@@ -176,10 +182,11 @@ abstract class DiamondBaseModel
 	protected static function update_attributes_where($attributes, $condition)
 	{
 		$class = get_called_class();
+		$table = $class::table();
 		
 		$set_attributes = self::parse_attributes_for_update($attributes);
 				
-		mysql_query("update ".$class::table()." set ".$set_attributes." where ".$condition);		
+		mysql_query("update $table set ".$set_attributes." where ".$condition);		
 		
 		return !mysql_error();
 	}
@@ -218,7 +225,7 @@ abstract class DiamondBaseModel
 		$insert_values = self::parse_attributes_for_insert($attributes, $table);
 		if($insert_values != "")
 		{
-			mysql_query("insert into ".$table." ".$insert_values);
+			mysql_query("insert into $table ".$insert_values);
 			
 			if(!mysql_error())
 				$result = true;
