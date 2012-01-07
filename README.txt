@@ -5,7 +5,7 @@ http://www.mysite.com/<controller>/<action>
 e.g. http://www.mysite.com/user/show_all
 
 ===Setup
-1. Modify the file "application/db/db.php" to the correct database credentials for your system
+1. Modify the file "config.php" to the correct database credentials for your system
 2. Copy all files into your web directory
 
 
