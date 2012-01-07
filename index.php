@@ -1,6 +1,7 @@
 <?php
-include_once("autoload.php");
-include_once('db/db.php');
+require_once("autoload.php");
+require_once("config.php");
+require_once('db/db.php');
 
 require_once('base/DiamondBase.php');
 require_once('base/DiamondBaseController.php');
@@ -28,6 +29,9 @@ $key_index = array_search("index.php", $path_pieces);
 try {
 	if (strnatcmp(phpversion(),'5.3.0') < 0) 
 		throw new Exception("Sorry you need php v. >= 5.3");
+
+	if($config["db"]["enabled"] && !open_db_connection())
+		throw new Exception("Database connection cannot be established");
 
 	//make sure index.php is in the url and that there is at least a controller in the path
 	if($key_index === 0 || count($path_pieces) < ($key_index+2)) {
@@ -63,11 +67,8 @@ try {
 				$params[$key] = $value;
 			}
 		}
-
-		if(open_db_connection())
-			$controller::$action($params);
-		else
-			throw new Exception("connection cannot be established");
+		
+		$controller::$action($params);
 	}
 	
 } catch (Exception $e) {
