@@ -48,7 +48,7 @@ abstract class DiamondBaseModel
 		$class = get_called_class();
 		$table = $class::table();
 		
-		$res = mysql_query("select * from $table";
+		$res = mysql_query("select * from $table");
 		
 		if(!$res)
 			return null;

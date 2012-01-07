@@ -29,20 +29,28 @@ php scripts/list.php (models|controllers|mvc)
 ===Helpers
 
 E.g. 
+Stylesheets
 <link href="stylesheets/style.css" rel="stylesheet" type="text/css"> 
 OR 
 <?= self::stylesheet('style') ?>
 
+Javascripts
 <script type="text/javascript" src="javascripts/app.js"/> 
 OR 
 <?= self::javascript('app') ?>
 
+Images
 <img src="images/pic.jpg" id="imgID" class="small_pic" style="width:100px"/> 
 OR 
 <?= self::image('pic.jpg', array("id" => "imgID", "width" => "100px", "class" => "small_pic")) ?>
 
-<?= self::link('/',"Home") ?>
+Page Links
+<a href="home">HOME LINK</a>
+OR
 <a href="<?= self::link_path('/')?>">MORE HOME</a>
+OR
+<?= self::link('/',"Home") ?>
+
 
 ===Rendering Views
 Views are meant to be rendered from controllers
