@@ -1,5 +1,5 @@
 <?php
-require_once(getcwd()."/application/DiamondBase.php");
+require_once("base/DiamondBase.php");
 
 $type = $argv[1] ? strtolower($argv[1]) : null;
 print $type ? "" : "No valid type entered\n";

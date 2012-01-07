@@ -1,7 +1,7 @@
 <?php
 require_once("db/db.php");
 require_once("autoload.php");
-require_once("application/DiamondBase.php");
+require_once("base/DiamondBase.php");
 
 if(count($argv) == 3) {
 	$type = $argv[1] ? strtolower($argv[1]) : null;

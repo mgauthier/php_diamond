@@ -1,4 +1,5 @@
 Options +FollowSymLinks  
+RewriteBase /php_diamond/
 RewriteEngine On
 
 RewriteCond $1 !^(images|javascripts|stylesheets|sitemap\.txt|robots\.txt|log\.txt)

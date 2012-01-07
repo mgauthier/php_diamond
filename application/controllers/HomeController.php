@@ -12,5 +12,9 @@ class HomeController extends DiamondBaseController
 
 		self::redirect('/auction/show');
 	}
+
+	public static function carGET($params=null) {	
+		self::render('car');
+	}
 }
 ?>
