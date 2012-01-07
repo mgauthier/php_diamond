@@ -7,6 +7,7 @@ require_once('base/DiamondBaseController.php');
 require_once('base/DiamondBaseModel.php');
 	
 $response = null;
+$params = null;
 $default_controller = DiamondBase::$default_controller;
 $default_action = DiamondBase::$default_action;
 
@@ -17,9 +18,9 @@ $default_action = DiamondBase::$default_action;
 $url = $_SERVER['PHP_SELF'];
 $arr = parse_url($url);
 
-print($_SERVER['HTTP_HOST'].'<br>');
-print($_SERVER['PHP_SELF'].'<br>');
-print($_SERVER['QUERY_STRING'].'<br>');
+// print($_SERVER['HTTP_HOST'].'<br>');
+// print($_SERVER['PHP_SELF'].'<br>');
+// print($_SERVER['QUERY_STRING'].'<br>');
 
 $path_pieces = explode("/",$arr["path"]);
 $key_index = array_search("index.php", $path_pieces);

@@ -1,9 +1,9 @@
-Options +FollowSymLinks  
-RewriteBase /php_diamond/
 RewriteEngine On
 
-RewriteCond $1 !^(images|javascripts|stylesheets|sitemap\.txt|robots\.txt|log\.txt)
-RewriteRule ^(.+)$ index.php?$1 [L] 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^(/images|/javascripts|/stylesheets|sitemap\.txt|robots\.txt|log\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]
 
 ErrorDocument 401 /public/err/401.php
 ErrorDocument 403 /public/err/403.php
