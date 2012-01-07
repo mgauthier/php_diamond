@@ -58,11 +58,11 @@ e.g. <? self::partial('user','default'); ?> //Renders /application/views/user/_d
 class BigCarController extends DiamondBaseController {
 
 ==Methods example
-public static function showGET($params=null) {	
+public static function show_GET($params=null) {	
 	self::render('show',array("layout" => "default"));
 }
 
-public static function addPOST($params)
+public static function add_POST($params)
 {		
 	$userId = $params["userId"];
 	$itemName = $params["itemName"];
@@ -73,7 +73,7 @@ public static function addPOST($params)
 	echo $response; 
 }
 
-public static function indexPOST($params=null) {
+public static function index_POST($params=null) {
 	self::redirect('/auction/show');
 }
 
