@@ -1,7 +1,10 @@
 <?php
 include_once("autoload.php");
 require_once('db/db.php');
-require_once('application/DiamondBase.php');
+
+require_once('base/DiamondBase.php');
+require_once('base/DiamondBaseController.php');
+require_once('base/DiamondBaseModel.php');
 	
 $response = null;
 $default_controller = DiamondBase::$default_controller;
