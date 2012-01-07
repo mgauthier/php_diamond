@@ -26,6 +26,9 @@ $path_pieces = explode("/",$arr["path"]);
 $key_index = array_search("index.php", $path_pieces);
 
 try {
+	if (strnatcmp(phpversion(),'5.3.0') < 0) 
+		throw new Exception("Sorry you need php v. >= 5.3");
+
 	//make sure index.php is in the url and that there is at least a controller in the path
 	if($key_index === 0 || count($path_pieces) < ($key_index+2)) {
 		$controller_dir = $default_controller;
@@ -35,7 +38,7 @@ try {
 		$_action = $key_index+2 < count($path_pieces) && strlen($path_pieces[$key_index+2]) > 0 ? $path_pieces[$key_index+2] : $default_action;
 	}
 	
-	$action = $_action.$_SERVER['REQUEST_METHOD'];
+	$action = $_action."_".$_SERVER['REQUEST_METHOD'];
 	$view = DiamondBase::typeToClass($action,"view");
  			
 	if(!$controller_dir) {
