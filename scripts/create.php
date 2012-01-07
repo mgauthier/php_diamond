@@ -69,7 +69,7 @@ function createController($name) {
 		$data = "<?php\nclass $class";
 		$data .= " extends $base_controller";
 		$data .= " {\n\n";
-		$data .= "\tpublic static function indexGET(".'$params'."=null) {\n\t\tself::render('index');\n\t}\n";
+		$data .= "\tpublic static function index_GET(".'$params'."=null) {\n\t\tself::render('index');\n\t}\n";
 		$data .= "\n}\n";
 		fwrite($fh, $data);
 		fclose($fh);
