@@ -105,3 +105,4 @@ class DiamondBase {
 		return $prefix;
 	}
 }
+DiamondBase::init();

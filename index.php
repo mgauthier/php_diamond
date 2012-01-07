@@ -6,8 +6,6 @@ require_once('db/db.php');
 require_once('base/DiamondBase.php');
 require_once('base/DiamondBaseController.php');
 require_once('base/DiamondBaseModel.php');
-
-DiamondBase::init();
 	
 $response = null;
 $params = null;
